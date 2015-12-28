@@ -1,0 +1,34 @@
+
+Tools needed
+
+Eclipse with Android SDK (assuming you know the basics here).
+Mobile Atlas Creator, for preparing map tiles.
+OSMDroid library, available here. I used osmdroid-android-3.0.7.jar.
+SLF4J Android library, available here. I used slf4j-android-1.5.8.jar. Without this library I got a NoClassDefFoundError when trying to run the app. Adding this library somehow fixed it [source].
+
+Preparing the map
+
+To download the map tiles I used Mobile Atlas Creator.
+
+My steps were as follows, most settings are done in the options pane to the left of the map:
+
+Set atlas format to Osmdroid ZIP [Atlas - Convert Atlas Format].
+Set your map area coordinates, either by clicking and dragging on the map, or by setting min and max coordinates in the coordinate selection pane to the left.
+Set map source to OpenStreetMap Mapnik. Note: I originally set my source to something else, and the map wouldn’t appear on my phone. I’m sure there’s a simple fix for this, but haven’t looked into it yet.
+Select the zoom levels you want to include. This will impact the storage space required. As you select more levels, the number of tiles needed are displayed. Each pane takes about 20kilobytes. I included all levels because my area of interest is so small that I’m not to concerned about that yet, I might make small versions available when I publish the app. For my area, 178 tiles + 20kB = 3.48MB.
+In the Atlas Content pane, set the name of your map first, then click “add selection” (the name really isn’t important, though).
+Then select “Create atlas” and your map is stored in the atlas folder under Mobile Atlas Creator.
+Move the resulting zip-file to /mnt/sdcard/osmdroid/ on your device. (For a slight improvement in performance, you can unzip the file and move the resulting Mapnik-folder to /mnt/sdcard/osmdroid/tiles/ instead. The difference in size isn’t that big, but the zip-file might be a good way to organize different maps if you have several areas, but I digress).
+
+
+Importing the libraries to Android project
+
+When I attach external libraries to my projects I put the .jar-files in the project folder so that I know where they are.
+
+Move the osmdroid-android-3.0.7.jar and slf4j-android-1.5.8.jar (and osmdroid-android-3.0.7-javadoc.jar for documentation) into your project folder.
+In eclipse, right click the project and click refresh, the files should show up.
+Right-click the files and select [Build Path -> Add to Build Path].
+Then, go into [Build Path -> Configure Build Path] and under the Libraries tab select the osmdroid.jar and edit javadoc location to the osmdroid-android-3.0.7-javadoc.jar file.
+
+
+
